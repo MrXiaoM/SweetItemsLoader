@@ -19,5 +19,6 @@ public class ItemsAdderHook extends AbstractModule implements Listener {
     public void onItemsAdderLoadData(ItemsAdderLoadDataEvent e) {
         File itemsAdderFolder = new File(plugin.getDataFolder().getParentFile(), "ItemsAdder");
         // TODO: ItemsAdder 重载时读取其 font_images 配置
+        FontImagesManager.inst().overwriteCache(itemsAdderFolder);
     }
 }

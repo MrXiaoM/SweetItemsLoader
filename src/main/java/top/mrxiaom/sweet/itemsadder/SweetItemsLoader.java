@@ -1,8 +1,7 @@
 package top.mrxiaom.sweet.itemsadder;
         
-import org.jetbrains.annotations.NotNull;
 import top.mrxiaom.pluginbase.BukkitPlugin;
-import top.mrxiaom.pluginbase.EconomyHolder;
+import top.mrxiaom.sweet.itemsadder.utils.Offset;
 
 public class SweetItemsLoader extends BukkitPlugin {
     public static SweetItemsLoader getInstance() {
@@ -20,6 +19,11 @@ public class SweetItemsLoader extends BukkitPlugin {
         );
     }
 
+
+    @Override
+    protected void beforeEnable() {
+        Offset.init();
+    }
 
     @Override
     protected void afterEnable() {
