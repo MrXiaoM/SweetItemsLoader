@@ -26,21 +26,20 @@ public class FontImagesManager extends AbstractModule {
     File fontImagesFile;
     public FontImagesManager(SweetItemsLoader plugin) {
         super(plugin);
-        fontImagesFile = new File(plugin.getDataFolder(), "font_images.yml");
         registerBungee();
     }
 
     @Override
     public void reloadConfig(MemoryConfiguration config) {
+        String s = config.getString("font-image-file", "./font_images.yml");
+        fontImagesFile = s.startsWith("./") ? new File(plugin.getDataFolder(), s.substring(2)) : new File(s);
         if (!plugin.hasItemsAdder()) {
-            String s = config.getString("font-image-file", "./font_images.yml");
-            File file = s.startsWith("./") ? new File(plugin.getDataFolder(), s.substring(2)) : new File(s);
-            if (!file.exists()) {
+            if (!fontImagesFile.exists()) {
                 warn("文件不存在: " + s);
                 return;
             }
             images.clear();
-            YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+            YamlConfiguration cfg = YamlConfiguration.loadConfiguration(fontImagesFile);
             ConfigurationSection section = cfg.getConfigurationSection("font_images");
             if (section != null) for (String key : section.getKeys(false)) {
                 images.put(key, section.getString(key));
