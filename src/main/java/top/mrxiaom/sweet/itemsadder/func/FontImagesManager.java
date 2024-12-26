@@ -125,6 +125,28 @@ public class FontImagesManager extends AbstractModule {
         }
     }
 
+    public String requestOffset(String str) {
+        String replace = str.replace(":", "");
+        if (!offsetPattern.matcher(replace).matches()) {
+            return "";
+        }
+        try {
+            int parseInt = Integer.parseInt(replace.replace("offset_", ""));
+            return Offset.get(parseInt);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    @Nullable
+    public String requestImage(String key, boolean z) {
+        String s = images.get(key);
+        if (s != null && z) {
+            return s + Offset.negative.get(1);
+        }
+        return s;
+    }
+
     public static FontImagesManager inst() {
         return instanceOf(FontImagesManager.class);
     }
