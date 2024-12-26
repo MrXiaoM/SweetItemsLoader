@@ -45,6 +45,8 @@ public class FontImagesManager extends AbstractModule {
                 images.put(key, section.getString(key));
             }
             info("已加载 " + images.size() + " 个 font_images");
+        } else if (!fontImagesFile.exists()) {
+            overwriteCache();
         }
     }
 
@@ -75,6 +77,11 @@ public class FontImagesManager extends AbstractModule {
         } catch (IOException e) {
             warn(e);
         }
+    }
+
+    public void overwriteCache() {
+        File itemsAdderFolder = new File(plugin.getDataFolder().getParentFile(), "ItemsAdder");
+        overwriteCache(itemsAdderFolder);
     }
 
     public void overwriteCache(File itemsAdderFolder) {

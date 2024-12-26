@@ -30,8 +30,7 @@ public class CommandMain extends AbstractModule implements CommandExecutor, TabC
                 if (!plugin.hasItemsAdder()) {
                     return t(sender, "&e该子服未安装 ItemsAdder");
                 }
-                File itemsAdderFolder = new File(plugin.getDataFolder().getParentFile(), "ItemsAdder");
-                FontImagesManager.inst().overwriteCache(itemsAdderFolder);
+                FontImagesManager.inst().overwriteCache();
                 return t(sender, "&a已执行生成操作");
             }
             if ("reload".equalsIgnoreCase(args[0]) && sender.isOp()) {
