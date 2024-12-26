@@ -7,6 +7,9 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.jetbrains.annotations.Nullable;
 import top.mrxiaom.pluginbase.func.AutoRegister;
 import top.mrxiaom.pluginbase.utils.Bytes;
@@ -19,20 +22,24 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 @AutoRegister
-public class FontImagesManager extends AbstractModule {
+public class FontImagesManager extends AbstractModule implements Listener {
     private static final Pattern offsetPattern = Pattern.compile("-?\\d+(\\.\\d+)?");
-    long cooldown = 0;
+    long nextTime = 0L, cooldown = 6000L;
     Map<String, String> images = new HashMap<>();
     File fontImagesFile;
+    boolean reloadOnJoin;
     public FontImagesManager(SweetItemsLoader plugin) {
         super(plugin);
         registerBungee();
+        registerEvents();
     }
 
     @Override
     public void reloadConfig(MemoryConfiguration config) {
         String s = config.getString("font-image-file", "./font_images.yml");
         fontImagesFile = s.startsWith("./") ? new File(plugin.getDataFolder(), s.substring(2)) : new File(s);
+        reloadOnJoin = plugin.hasItemsAdder() && config.getBoolean("reload-on-join", true);
+        cooldown = config.getLong("request-cooldown", 6000L);
         if (!plugin.hasItemsAdder()) {
             if (!fontImagesFile.exists()) {
                 warn("文件不存在: " + s);
@@ -54,10 +61,24 @@ public class FontImagesManager extends AbstractModule {
     public void receiveBungee(String subChannel, DataInputStream in) throws IOException {
         if (subChannel.equals("ItemsAdder")) {
             String operation = in.readUTF();
-            if (operation.equals("Reload") && System.currentTimeMillis() > cooldown) {
-                cooldown = System.currentTimeMillis() + 6000L;
-                reloadConfig(plugin.getConfig());
+            if (operation.equals("Reload")) {
+                requestReload();
             }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent e) {
+        if (reloadOnJoin) {
+            requestReload();
+        }
+    }
+
+    private void requestReload() {
+        long now = System.currentTimeMillis();
+        if (now > nextTime) {
+            nextTime = now + cooldown;
+            reloadConfig(plugin.getConfig());
         }
     }
 
