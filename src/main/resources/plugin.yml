@@ -2,8 +2,8 @@ name: SweetItemsLoader
 version: '${version}'
 main: top.mrxiaom.sweet.itemsadder.SweetItemsLoader
 api-version: 1.13
-depend: [  ]
-softdepend: [ PlaceholderAPI ]
+depend: [ PlaceholderAPI ]
+softdepend: [ ItemsAdder ]
 authors: [ MrXiaoM ]
 commands:
   sweetitemsloader:

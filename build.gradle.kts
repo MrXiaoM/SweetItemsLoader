@@ -26,6 +26,7 @@ dependencies {
     // compileOnly("org.spigotmc:spigot:1.20") // NMS
 
     compileOnly("me.clip:placeholderapi:2.11.6")
+    compileOnly("com.github.LoneDev6:API-ItemsAdder:3.6.3-beta-14")
 
     implementation("org.jetbrains:annotations:24.0.0")
     implementation("top.mrxiaom:PluginBase:1.1.5")
