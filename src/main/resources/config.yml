@@ -1,0 +1,5 @@
+# font_images.yml 文件路径
+# 应当改为装有 ItemsAdder 子服的
+# plugins/SweetItemsLoader/font_images.yml
+# 的绝对路径
+font-image-file: './font_images.yml'
