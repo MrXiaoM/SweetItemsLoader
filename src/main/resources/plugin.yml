@@ -1,0 +1,11 @@
+name: SweetItemsLoader
+version: '${version}'
+main: top.mrxiaom.sweet.itemsadder.SweetItemsLoader
+api-version: 1.13
+depend: [  ]
+softdepend: [ PlaceholderAPI ]
+authors: [ MrXiaoM ]
+commands:
+  sweetitemsloader:
+    description: 'The main command of SweetItemsLoader'
+    aliases: [ sil ]
