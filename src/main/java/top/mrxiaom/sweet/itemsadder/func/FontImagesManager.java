@@ -112,7 +112,7 @@ public class FontImagesManager extends AbstractModule {
         File[] files = folder.listFiles();
         if (files != null) for (File file : files) {
             if (file.isDirectory()) {
-                load(cache, folder);
+                load(cache, file);
                 continue;
             }
             if (file.getName().endsWith(".yml")) {
