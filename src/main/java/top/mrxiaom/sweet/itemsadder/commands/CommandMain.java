@@ -11,7 +11,9 @@ import org.jetbrains.annotations.Nullable;
 import top.mrxiaom.pluginbase.func.AutoRegister;
 import top.mrxiaom.sweet.itemsadder.SweetItemsLoader;
 import top.mrxiaom.sweet.itemsadder.func.AbstractModule;
+import top.mrxiaom.sweet.itemsadder.func.FontImagesManager;
 
+import java.io.File;
 import java.util.*;
 
 @AutoRegister
@@ -23,9 +25,19 @@ public class CommandMain extends AbstractModule implements CommandExecutor, TabC
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 1 && "reload".equalsIgnoreCase(args[0]) && sender.isOp()) {
-            plugin.reloadConfig();
-            return t(sender, "&a配置文件已重载");
+        if (args.length == 1) {
+            if (("gen".equalsIgnoreCase(args[0]) || "generate".equalsIgnoreCase(args[0])) && sender.isOp()) {
+                if (!plugin.hasItemsAdder()) {
+                    return t(sender, "&e该子服未安装 ItemsAdder");
+                }
+                File itemsAdderFolder = new File(plugin.getDataFolder().getParentFile(), "ItemsAdder");
+                FontImagesManager.inst().overwriteCache(itemsAdderFolder);
+                return t(sender, "&a已执行生成操作");
+            }
+            if ("reload".equalsIgnoreCase(args[0]) && sender.isOp()) {
+                plugin.reloadConfig();
+                return t(sender, "&a配置文件已重载");
+            }
         }
         return true;
     }
@@ -33,7 +45,7 @@ public class CommandMain extends AbstractModule implements CommandExecutor, TabC
     private static final List<String> emptyList = Lists.newArrayList();
     private static final List<String> listArg0 = Lists.newArrayList();
     private static final List<String> listOpArg0 = Lists.newArrayList(
-            "reload");
+            "generate", "reload");
     @Nullable
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
