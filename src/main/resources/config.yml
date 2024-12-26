@@ -1,5 +1,6 @@
 # font_images.yml 文件路径
-# 应当改为装有 ItemsAdder 子服的
-# plugins/SweetItemsLoader/font_images.yml
-# 的绝对路径
+#
+# 在装有 ItemsAdder 的子服中，字体图片字符配置会保存到指定路径；
+# 在未装 ItemsAdder 的子服中，从这个路径读取字体图片字符配置，
+# 应当改为装有 ItemsAdder 子服的 plugins/SweetItemsLoader/font_images.yml 的绝对路径。
 font-image-file: './font_images.yml'
