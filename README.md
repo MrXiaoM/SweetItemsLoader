@@ -9,7 +9,7 @@ ItemsAdder 3.6.4 字体图片字符变量。
 我只想要用字体图片变量，还得把 ItemsAdder 那一堆给移过来，有点太浪费了。
 
 这个插件会在有 ItemsAdder 的子服，在 ItemsAdder 重载的时候，保存字体图片字符列表到 `font_images.yml` 文件。  
-在没有 ItemsAdder 的子服，读取保存的 `font_images.yml` 文件，注册 PAPI 变量 `img`，争取做到与 ItemsAdder 原本的变量基本一致。
+在没有 ItemsAdder 的子服，读取保存的 `font_images.yml` 文件，注册 PAPI 变量 `img`，争取做到与 ItemsAdder 原本的变量基本一致。该变量集成了 [GuiTextureSpliter](https://github.com/MrXiaoM/GuiTextureSpliter) 的变量扩展，用法：`%img_cd_main,216,48%`。
 
 ## 用法
 
