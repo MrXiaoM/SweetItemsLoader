@@ -10,8 +10,10 @@ import top.mrxiaom.sweet.itemsadder.utils.Offset;
 
 public class Placeholder extends PlaceholderExpansion {
     SweetItemsLoader plugin;
-    protected Placeholder(SweetItemsLoader plugin) {
+    private final String id;
+    protected Placeholder(SweetItemsLoader plugin, String id) {
         this.plugin = plugin;
+        this.id = id;
     }
 
     @Override
@@ -22,7 +24,7 @@ public class Placeholder extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getIdentifier() {
-        return "img";
+        return id;
     }
 
     @Override

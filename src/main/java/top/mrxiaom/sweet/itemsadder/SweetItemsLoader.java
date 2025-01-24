@@ -20,7 +20,7 @@ public class SweetItemsLoader extends BukkitPlugin {
         );
     }
     boolean hasItemsAdder;
-    Placeholder placeholder;
+    Placeholder placeholder, alt;
 
     public boolean hasItemsAdder() {
         return hasItemsAdder;
@@ -31,9 +31,11 @@ public class SweetItemsLoader extends BukkitPlugin {
         Offset.init();
         hasItemsAdder = Util.isPresent("dev.lone.itemsadder.api.ItemsAdder");
         if (!hasItemsAdder) {
-            placeholder = new Placeholder(this);
+            placeholder = new Placeholder(this, "img");
             placeholder.register();
         }
+        alt = new Placeholder(this, "imgalt");
+        alt.register();
     }
 
     @Override
@@ -45,6 +47,9 @@ public class SweetItemsLoader extends BukkitPlugin {
     protected void afterDisable() {
         if (placeholder != null) {
             placeholder.unregister();
+        }
+        if (alt != null) {
+            alt.unregister();
         }
     }
 }
