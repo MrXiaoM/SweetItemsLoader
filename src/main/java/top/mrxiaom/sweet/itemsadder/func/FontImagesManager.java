@@ -29,6 +29,7 @@ public class FontImagesManager extends AbstractModule implements Listener {
     File fontImagesFile;
     boolean reloadOnJoin;
     boolean writeFontImages;
+
     public FontImagesManager(SweetItemsLoader plugin) {
         super(plugin);
         registerBungee();
@@ -42,21 +43,20 @@ public class FontImagesManager extends AbstractModule implements Listener {
         reloadOnJoin = plugin.hasItemsAdder() && config.getBoolean("reload-on-join", true);
         writeFontImages = config.getBoolean("write-font-images", true);
         cooldown = config.getLong("request-cooldown", 6000L);
-        if (!plugin.hasItemsAdder()) {
-            if (!fontImagesFile.exists()) {
-                warn("文件不存在: " + s);
-                return;
-            }
-            images.clear();
-            YamlConfiguration cfg = YamlConfiguration.loadConfiguration(fontImagesFile);
-            ConfigurationSection section = cfg.getConfigurationSection("font_images");
-            if (section != null) for (String key : section.getKeys(false)) {
-                images.put(key, section.getString(key));
-            }
-            info("已加载 " + images.size() + " 个 font_images");
-        } else if (!fontImagesFile.exists()) {
+        if (plugin.hasItemsAdder() && !fontImagesFile.exists()) {
             overwriteCache();
         }
+        if (!fontImagesFile.exists()) {
+            warn("文件不存在: " + s);
+            return;
+        }
+        images.clear();
+        YamlConfiguration cfg = YamlConfiguration.loadConfiguration(fontImagesFile);
+        ConfigurationSection section = cfg.getConfigurationSection("font_images");
+        if (section != null) for (String key : section.getKeys(false)) {
+            images.put(key, section.getString(key));
+        }
+        info("已加载 " + images.size() + " 个 font_images");
     }
 
     @Override
