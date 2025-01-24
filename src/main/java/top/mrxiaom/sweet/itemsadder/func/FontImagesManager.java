@@ -28,6 +28,7 @@ public class FontImagesManager extends AbstractModule implements Listener {
     Map<String, String> images = new HashMap<>();
     File fontImagesFile;
     boolean reloadOnJoin;
+    boolean writeFontImages;
     public FontImagesManager(SweetItemsLoader plugin) {
         super(plugin);
         registerBungee();
@@ -39,6 +40,7 @@ public class FontImagesManager extends AbstractModule implements Listener {
         String s = config.getString("font-image-file", "./font_images.yml");
         fontImagesFile = s.startsWith("./") ? new File(plugin.getDataFolder(), s.substring(2)) : new File(s);
         reloadOnJoin = plugin.hasItemsAdder() && config.getBoolean("reload-on-join", true);
+        writeFontImages = config.getBoolean("write-font-images", true);
         cooldown = config.getLong("request-cooldown", 6000L);
         if (!plugin.hasItemsAdder()) {
             if (!fontImagesFile.exists()) {
@@ -106,6 +108,7 @@ public class FontImagesManager extends AbstractModule implements Listener {
     }
 
     public void overwriteCache(File itemsAdderFolder) {
+        if (!writeFontImages) return;
         images.clear();
         Map<String, String> cache = new HashMap<>();
         File cacheFile = new File(itemsAdderFolder, "storage/font_images_unicode_cache.yml");

@@ -4,6 +4,8 @@
 # 在未装 ItemsAdder 的子服中，从这个路径读取字体图片字符配置，
 # 应当改为装有 ItemsAdder 子服的 plugins/SweetItemsLoader/font_images.yml 的绝对路径。
 font-image-file: './font_images.yml'
+# 是否在插件加载时、ItemsAdder 重载完成时写入 ItemsAdder 的字体贴图到 font-image-file
+write-font-images: true
 # 自动重载（玩家进服自动重载、BungeeCord 通信）的冷却时间（毫秒），仅在未安装 ItemsAdder 的子服有效
 request-cooldown: 6000
 # 是否在玩家进服时自动重载字体图片字符配置，仅在未安装 ItemsAdder 的子服有效
