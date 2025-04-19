@@ -29,6 +29,7 @@ dependencies {
     compileOnly("com.github.LoneDev6:API-ItemsAdder:3.6.3-beta-14")
 
     implementation("org.jetbrains:annotations:24.0.0")
+    implementation("com.github.technicallycoded:FoliaLib:0.4.4")
     implementation("top.mrxiaom:PluginBase:1.3.8")
 }
 java {
@@ -43,6 +44,7 @@ tasks {
         mapOf(
             "org.intellij.lang.annotations" to "annotations.intellij",
             "org.jetbrains.annotations" to "annotations.jetbrains",
+            "com.tcoded.folialib" to "folialib",
             "top.mrxiaom.pluginbase" to "base",
         ).forEach { (original, target) ->
             relocate(original, "$shadowGroup.$target")

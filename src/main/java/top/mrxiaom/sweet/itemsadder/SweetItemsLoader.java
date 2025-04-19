@@ -2,6 +2,7 @@ package top.mrxiaom.sweet.itemsadder;
         
 import top.mrxiaom.pluginbase.BukkitPlugin;
 import top.mrxiaom.pluginbase.utils.Util;
+import top.mrxiaom.pluginbase.utils.scheduler.FoliaLibScheduler;
 import top.mrxiaom.sweet.itemsadder.utils.Offset;
 
 public class SweetItemsLoader extends BukkitPlugin {
@@ -18,6 +19,7 @@ public class SweetItemsLoader extends BukkitPlugin {
                 .vaultEconomy(false)
                 .scanIgnore("top.mrxiaom.sweet.itemsadder.libs")
         );
+        scheduler = new FoliaLibScheduler(this);
     }
     boolean hasItemsAdder;
     Placeholder placeholder, alt;
